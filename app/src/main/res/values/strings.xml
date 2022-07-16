@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DrawingApp</string>
+    <string name="app_name">Pug Pad</string>
     <string name="btn_clear">Clear</string>
     <string name="undo">Undo</string>
 </resources>

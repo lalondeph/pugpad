@@ -12,6 +12,7 @@
         android:layout_height="100dp"
         android:background="#959595"
         android:paddingLeft="3dp"
+        android:paddingTop="5dp"
         android:paddingRight="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +38,7 @@
 
             <Button
                 android:id="@+id/btnRed"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="1dp"
@@ -46,11 +48,11 @@
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="17sp"
-                app:backgroundTint="@null"
-                style="?android:attr/buttonBarButtonStyle" />
+                app:backgroundTint="@null" />
 
             <Button
                 android:id="@+id/btnGreen"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="1dp"
@@ -60,11 +62,11 @@
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="17sp"
-                app:backgroundTint="@null"
-                style="?android:attr/buttonBarButtonStyle"/>
+                app:backgroundTint="@null" />
 
             <Button
                 android:id="@+id/btnPurple"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="1dp"
@@ -74,11 +76,11 @@
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="17sp"
-                app:backgroundTint="@null"
-                style="?android:attr/buttonBarButtonStyle"/>
+                app:backgroundTint="@null" />
 
             <Button
                 android:id="@+id/btnBlue"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="1dp"
@@ -88,11 +90,11 @@
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="17sp"
-                app:backgroundTint="@null"
-                style="?android:attr/buttonBarButtonStyle"/>
+                app:backgroundTint="@null" />
 
             <Button
                 android:id="@+id/btnGray"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="1dp"
@@ -102,11 +104,11 @@
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="17sp"
-                app:backgroundTint="@null"
-                style="?android:attr/buttonBarButtonStyle"/>
+                app:backgroundTint="@null" />
 
             <Button
                 android:id="@+id/btnBlack"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="1dp"
@@ -116,11 +118,11 @@
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="17sp"
-                app:backgroundTint="@null"
-                style="?android:attr/buttonBarButtonStyle"/>
+                app:backgroundTint="@null" />
 
             <Button
                 android:id="@+id/btnWhite"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="1dp"
@@ -130,8 +132,7 @@
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="17sp"
-                app:backgroundTint="@null"
-                style="?android:attr/buttonBarButtonStyle"/>
+                app:backgroundTint="@null" />
 
         </TableRow>
 
