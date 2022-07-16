@@ -3,7 +3,6 @@ package comp208.lalonde;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -43,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
      * onCreate links variables with on-screen elements and
      * assigns them to various listeners. It also sets the initial
      * value for variables the user will later reassign.
-     * @param savedInstanceState
+     *
+     * @param savedInstanceState : A mapping from String keys to various Parcelable values
      */
     @SuppressLint("ClickableViewAccessibility")
     @Override
