@@ -1,4 +1,4 @@
-package comp208.lalonde;
+package jadepug.pugpad;
 
 import android.content.Context;
 import android.graphics.Canvas;

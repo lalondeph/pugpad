@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context="jadepug.pugpad.MainActivity">
 
     <TableLayout
         android:id="@+id/tools"
@@ -229,7 +229,7 @@
         </TableRow>
     </TableLayout>
 
-    <comp208.lalonde.DrawingView
+    <jadepug.pugpad.DrawingView
         android:id="@+id/drawingView"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -238,8 +238,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tools">
-    </comp208.lalonde.DrawingView>
+        app:layout_constraintTop_toBottomOf="@+id/tools" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

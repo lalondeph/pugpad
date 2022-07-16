@@ -1,4 +1,4 @@
-package comp208.lalonde;
+package jadepug.pugpad;
 
 import androidx.appcompat.app.AppCompatActivity;
 

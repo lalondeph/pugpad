@@ -1,4 +1,4 @@
-package comp208.lalonde;
+package jadepug.pugpad;
 
 /**
  * StrokeSize class sets constants used to describe
