@@ -23,8 +23,9 @@
 
             <Button
                 android:id="@+id/btnYellow"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="1dp"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
@@ -32,8 +33,7 @@
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="17sp"
-                app:backgroundTint="@null"
-                style="?android:attr/buttonBarButtonStyle" />
+                app:backgroundTint="@null" />
 
             <Button
                 android:id="@+id/btnRed"
@@ -156,7 +156,7 @@
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight=".2"></Space>
+                android:layout_weight=".2" />
 
             <Button
                 android:id="@+id/btnMed"
@@ -175,16 +175,16 @@
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight=".2"></Space>
+                android:layout_weight=".2" />
 
             <Button
                 android:id="@+id/btnSmall"
-                android:layout_width="20dp"
+                android:layout_width="18dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_margin="1dp"
                 android:backgroundTint="#000000"
-                android:maxWidth="29dp"
+                android:maxWidth="30dp"
                 android:maxHeight="40dp"
                 android:tag="20"
                 app:cornerRadius="50dp"
@@ -194,7 +194,7 @@
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight=".2"></Space>
+                android:layout_weight=".2" />
 
             <Button
                 android:id="@+id/btnClear"
@@ -205,7 +205,25 @@
                 android:adjustViewBounds="true"
                 android:backgroundTint="#F0ECB100"
                 android:minHeight="48dp"
-                android:text="@string/btn_clear" />
+                android:text="@string/btn_clear"
+                android:textColor="#5D4037" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".2" />
+
+            <Button
+                android:id="@+id/btnUndo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:layout_weight="2"
+                android:adjustViewBounds="true"
+                android:backgroundTint="#F0ECB100"
+                android:minHeight="48dp"
+                android:text="@string/undo"
+                android:textColor="#5D4037" />
 
         </TableRow>
     </TableLayout>
@@ -219,7 +237,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tools"></comp208.lalonde.DrawingView>
+        app:layout_constraintTop_toBottomOf="@+id/tools">
+    </comp208.lalonde.DrawingView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

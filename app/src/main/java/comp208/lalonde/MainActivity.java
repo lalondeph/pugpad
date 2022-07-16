@@ -9,6 +9,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.Objects;
+
 /**
  * MainActivity hosts the running logic for the app.
  * Here we define elements on the screen and
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnMed;
     Button btnLarge;
     Button btnClear;
+    Button btnUndo;
 
     String smileText = "\u263B";
     Button selectedColorBtn;
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         dv =  findViewById(R.id.drawingView);
         dv.setDrawingCacheEnabled(true);
@@ -63,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         btnMed = findViewById(R.id.btnMed);
         btnLarge = findViewById(R.id.btnLarge);
         btnClear = findViewById(R.id.btnClear);
+        btnUndo = findViewById(R.id.btnUndo);
 
         btnYellow.setOnClickListener(colorListener);
         btnRed.setOnClickListener(colorListener);
@@ -98,6 +103,18 @@ public class MainActivity extends AppCompatActivity {
         btnClear.setOnClickListener(view -> {
             dv.paths.clear();
             dv.invalidate();
+        });
+
+        /*
+         * This listener removes the last path
+         * from the Arraylist
+         * and prompts the canvas to redraw
+         */
+        btnUndo.setOnClickListener(view -> {
+            if(dv.paths.size() > 0) {
+                dv.paths.remove(dv.paths.size()-1);
+                dv.invalidate();
+            }
         });
 
         /*
