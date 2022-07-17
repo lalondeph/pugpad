@@ -1,6 +1,7 @@
 package jadepug.pugpad;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
@@ -16,6 +17,7 @@ public class DrawingView extends View {
 
     Paint paint = new Paint();
     ArrayList<DrawingPath> paths = new ArrayList<>();
+    ArrayList<DrawingPath> undone_paths = new ArrayList<>();
     DrawingPath path;
 
     public DrawingView(Context context, @Nullable AttributeSet attrs) {
@@ -68,6 +70,13 @@ public class DrawingView extends View {
             paint.setStrokeWidth(path.lineWidth);
             canvas.drawPath(path,paint);
         }
+    }
+
+    public Bitmap viewToBitmap(View view) {
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        return bitmap;
     }
 
     public void setDrawingColor(int color) { paint.setColor(color); }

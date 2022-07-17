@@ -31,8 +31,10 @@ public class MainActivity extends AppCompatActivity {
     Button btnSmall;
     Button btnMed;
     Button btnLarge;
+    Button btnSave;
     Button btnClear;
     Button btnUndo;
+    Button btnRedo;
 
     String smileText = "\u263B";
     Button selectedColorBtn;
@@ -66,8 +68,10 @@ public class MainActivity extends AppCompatActivity {
         btnSmall = findViewById(R.id.btnSmall);
         btnMed = findViewById(R.id.btnMed);
         btnLarge = findViewById(R.id.btnLarge);
+        btnSave = findViewById(R.id.btnSave);
         btnClear = findViewById(R.id.btnClear);
         btnUndo = findViewById(R.id.btnUndo);
+        btnRedo = findViewById(R.id.btnRedo);
 
         btnYellow.setOnClickListener(colorListener);
         btnRed.setOnClickListener(colorListener);
@@ -97,6 +101,13 @@ public class MainActivity extends AppCompatActivity {
         selectedSizeBtn.setBackgroundColor(StrokeColor.getWHITE());
 
         /*
+         * This listener Saves the canvas to a file
+         */
+        btnSave.setOnClickListener(view -> {
+            dv.invalidate();
+        });
+
+        /*
          * This listener clears out the paths Arraylist
          * and prompts the canvas to redraw
          */
@@ -107,12 +118,24 @@ public class MainActivity extends AppCompatActivity {
 
         /*
          * This listener removes the last path
-         * from the Arraylist
+         * from the paths Arraylist
          * and prompts the canvas to redraw
          */
         btnUndo.setOnClickListener(view -> {
             if(dv.paths.size() > 0) {
-                dv.paths.remove(dv.paths.size()-1);
+                dv.undone_paths.add(dv.paths.remove(dv.paths.size()-1));
+                dv.invalidate();
+            }
+        });
+
+        /*
+         * This listener restores the the last
+         * removed path from the paths Arraylist
+         * and prompts the canvas to redraw
+         */
+        btnRedo.setOnClickListener(view -> {
+            if(dv.undone_paths.size() > 0) {
+                dv.paths.add(dv.undone_paths.remove(dv.undone_paths.size()-1));
                 dv.invalidate();
             }
         });
