@@ -3,7 +3,7 @@ package jadepug.pugpad;
 /**
  * StrokeSize class sets constants used to describe
  * and set the size of the paths stroke.
- * <p>
+ *
  * Author: Philip lalonde
  * Organization: Jade Pug
  */

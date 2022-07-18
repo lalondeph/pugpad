@@ -20,11 +20,13 @@ import java.util.ArrayList;
  */
 public class DrawingView extends View {
 
-    Paint paint = new Paint();
-    ArrayList<DrawingPath> paths = new ArrayList<>();
-    ArrayList<DrawingPath> undone_paths = new ArrayList<>();
-    DrawingPath path;
-    Bitmap bitmap;
+    private final Paint paint = new Paint();
+    public ArrayList<DrawingPath> paths = new ArrayList<>();
+    public ArrayList<DrawingPath> undone_paths = new ArrayList<>();
+    private DrawingPath path;
+    public Bitmap bitmap;
+    private int currentStrokeColor;
+    private float currentStrokeSize;
 
     /**
      * Class constructor
@@ -34,8 +36,14 @@ public class DrawingView extends View {
      */
     public DrawingView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        paint.setColor(StrokeColor.getWHITE());
-        paint.setStrokeWidth(StrokeSize.getSMALL());
+        setCurrentStrokeColor(StrokeColor.getWHITE());
+        setCurrentStrokeSize(StrokeSize.getSMALL());
+
+        paint.setColor(currentStrokeColor);
+        paint.setStrokeWidth(currentStrokeSize);
+
+        paint.setAntiAlias(true);
+        paint.setDither(true);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeJoin(Paint.Join.ROUND);
         paint.setStrokeCap(Paint.Cap.ROUND);
@@ -61,12 +69,11 @@ public class DrawingView extends View {
      * beginPath receives an x and y coordinate and adds a
      * a new DrawingPath with those coordinates to an ArrayList of DrawingPaths.
      *
-     * @param x
-     * @param y
+     * @param x - x coordinate of input
+     * @param y - y coordinate of input
      */
     public void beginPath(float x, float y) {
-        path = new DrawingPath(paint.getColor(), paint.getStrokeWidth());
-        path.moveTo(x, y);
+        path = new DrawingPath(currentStrokeColor, currentStrokeSize);
         paths.add(path);
     }
 
@@ -87,6 +94,11 @@ public class DrawingView extends View {
         }
     }
 
+    /**
+     * Convert the view into a bitmap
+     *
+     * @return Bitmap
+     */
     public Bitmap viewToBitmap() {
         bitmap = Bitmap.createBitmap(this.getWidth(), this.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
@@ -110,12 +122,19 @@ public class DrawingView extends View {
         paths.add(undone_paths.remove(undone_paths.size() - 1));
     }
 
-    public void setDrawingColor(int color) {
-        paint.setColor(color);
+    public int getCurrentStrokeColor() {
+        return currentStrokeColor;
     }
 
-    public void setDrawingWidth(float width) {
-        paint.setStrokeWidth(width);
+    public void setCurrentStrokeColor(int currentStrokeColor) {
+        this.currentStrokeColor = currentStrokeColor;
     }
 
+    public float getCurrentStrokeSize() {
+        return currentStrokeSize;
+    }
+
+    public void setCurrentStrokeSize(float currentStrokeSize) {
+        this.currentStrokeSize = currentStrokeSize;
+    }
 }

@@ -4,7 +4,7 @@ import android.graphics.Path;
 
 /**
  * DrawingPath class describes the qualities of a Path.
- * <p>
+ *
  * Author: Philip lalonde
  * Organization: Jade Pug
  */

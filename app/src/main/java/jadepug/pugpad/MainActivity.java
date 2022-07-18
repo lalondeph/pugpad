@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
          * This listener Saves the canvas to a file
          */
         btnSave.setOnClickListener(view -> {
-            if (!saving) {
+            if (!saving && dv.paths.size() > 0) {
                 saving = true;
                 // Show file save message
                 Snackbar.make(activity_main, R.string.saving_image,
@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
                 selectedColorBtn = btnWhite;
             }
 
-            dv.setDrawingColor(newColor);
+            dv.setCurrentStrokeColor(newColor);
             selectedColorBtn.setText(smileText);
         }
     };
@@ -269,7 +269,7 @@ public class MainActivity extends AppCompatActivity {
                 selectedSizeBtn = btnSmall;
             }
 
-            dv.setDrawingWidth(newWidth);
+            dv.setCurrentStrokeSize(newWidth);
             selectedSizeBtn.setBackgroundColor(StrokeColor.getWHITE());
         }
     };
