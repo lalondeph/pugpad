@@ -5,6 +5,9 @@ import android.graphics.Color;
 /**
  * StrokeColor class sets constants used to describe
  * and set the color of the paths stroke.
+ *
+ * Author: Philip lalonde
+ * Organization: Jade Pug
  */
 public class StrokeColor {
 
@@ -17,20 +20,36 @@ public class StrokeColor {
     static final int BLACK = Color.parseColor("#212420");
     static final int WHITE = Color.parseColor("#f3f8f1");
 
-    static public int getYELLOW() { return YELLOW; }
+    static public int getYELLOW() {
+        return YELLOW;
+    }
 
-    static public int getRED() { return RED; }
+    static public int getRED() {
+        return RED;
+    }
 
-    static public int getGREEN() { return GREEN; }
+    static public int getGREEN() {
+        return GREEN;
+    }
 
-    static public int getPURPLE() { return PURPLE; }
+    static public int getPURPLE() {
+        return PURPLE;
+    }
 
-    static public int getBLUE() { return BLUE; }
+    static public int getBLUE() {
+        return BLUE;
+    }
 
-    static public int getGRAY() { return GRAY; }
+    static public int getGRAY() {
+        return GRAY;
+    }
 
-    static public int getBLACK() { return BLACK; }
+    static public int getBLACK() {
+        return BLACK;
+    }
 
-    static public int getWHITE() { return WHITE; }
+    static public int getWHITE() {
+        return WHITE;
+    }
 
 }

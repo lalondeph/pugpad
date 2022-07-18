@@ -1,12 +1,7 @@
 package jadepug.pugpad;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -17,6 +12,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.OutputStream;
@@ -26,25 +24,28 @@ import java.util.Objects;
  * MainActivity hosts the running logic for the app.
  * Here we define elements on the screen and
  * capture / apply user input
+ *
+ * Author: Philip lalonde
+ * Organization: Jade Pug
  */
 public class MainActivity extends AppCompatActivity {
 
     private DrawingView dv;
     private View activity_main;
 
-    private Button  btnYellow,
-                    btnRed,
-                    btnGreen,
-                    btnPurple,
-                    btnBlue,
-                    btnGray,
-                    btnBlack,
-                    btnWhite,
-                    btnSmall,
-                    btnMed,
-                    btnLarge,
-                    selectedColorBtn,
-                    selectedSizeBtn;
+    private Button btnYellow,
+            btnRed,
+            btnGreen,
+            btnPurple,
+            btnBlue,
+            btnGray,
+            btnBlack,
+            btnWhite,
+            btnSmall,
+            btnMed,
+            btnLarge,
+            selectedColorBtn,
+            selectedSizeBtn;
 
     private final String smileText = "\u263B";
     private boolean saving = false;
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
 
         activity_main = findViewById(R.id.activity_main);
-        dv =  findViewById(R.id.drawingView);
+        dv = findViewById(R.id.drawingView);
         dv.setDrawingCacheEnabled(true);
 
         btnYellow = findViewById(R.id.btnYellow);
@@ -115,33 +116,28 @@ public class MainActivity extends AppCompatActivity {
          * This listener Saves the canvas to a file
          */
         btnSave.setOnClickListener(view -> {
-            if(!saving) {
+            if (!saving) {
                 saving = true;
+                // Show file save message
                 Snackbar.make(activity_main, R.string.saving_image,
                         Snackbar.LENGTH_SHORT)
                         .show();
-
-                //getting the bitmap from DrawView class
+                // Get bitmap from DrawView class
                 Bitmap bmp = dv.viewToBitmap();
-                //opening a OutputStream to write into the file
-                OutputStream imageOutStream = null;
-
+                // Open OutputStream to write into the file
+                OutputStream imageOutStream;
+                // Instantiate ContentView
                 ContentValues cv = new ContentValues();
-                //name of the file
-                cv.put(MediaStore.Images.Media.DISPLAY_NAME, "drawing.png");
-                //type of the file
+                // Set file name, type and save location
+                cv.put(MediaStore.Images.Media.DISPLAY_NAME, "pug_pad.png");
                 cv.put(MediaStore.Images.Media.MIME_TYPE, "image/png");
-                //location of the file to be saved
                 cv.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES);
 
-                //ge the Uri of the file which is to be v=created in the storage
+                // Get file URI
                 Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv);
                 try {
-                    //open the output stream with the above uri
                     imageOutStream = getContentResolver().openOutputStream(uri);
-                    //this method writes the files in storage
                     bmp.compress(Bitmap.CompressFormat.PNG, 100, imageOutStream);
-                    //close the output stream after use
                     imageOutStream.close();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -165,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
          * and prompts the canvas to redraw
          */
         btnUndo.setOnClickListener(view -> {
-            if(dv.paths.size() > 0) {
+            if (dv.paths.size() > 0) {
                 dv.undoPath();
                 dv.invalidate();
             }
@@ -177,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
          * and prompts the canvas to redraw
          */
         btnRedo.setOnClickListener(view -> {
-            if(dv.undone_paths.size() > 0) {
+            if (dv.undone_paths.size() > 0) {
                 dv.redoPath();
                 dv.invalidate();
             }
@@ -217,35 +213,28 @@ public class MainActivity extends AppCompatActivity {
 
             selectedColorBtn.setText("");
 
-            if(selectedColor == btnYellow.getId()) {
+            if (selectedColor == btnYellow.getId()) {
                 newColor = StrokeColor.getYELLOW();
                 selectedColorBtn = btnYellow;
-            }
-            else if(selectedColor == btnRed.getId()) {
+            } else if (selectedColor == btnRed.getId()) {
                 newColor = StrokeColor.getRED();
                 selectedColorBtn = btnRed;
-            }
-            else if(selectedColor == btnGreen.getId()) {
+            } else if (selectedColor == btnGreen.getId()) {
                 newColor = StrokeColor.getGREEN();
                 selectedColorBtn = btnGreen;
-            }
-            else if(selectedColor == btnPurple.getId()) {
+            } else if (selectedColor == btnPurple.getId()) {
                 newColor = StrokeColor.getPURPLE();
                 selectedColorBtn = btnPurple;
-            }
-            else if(selectedColor == btnBlue.getId()) {
+            } else if (selectedColor == btnBlue.getId()) {
                 newColor = StrokeColor.getBLUE();
                 selectedColorBtn = btnBlue;
-            }
-            else if(selectedColor == btnGray.getId()) {
+            } else if (selectedColor == btnGray.getId()) {
                 newColor = StrokeColor.getGRAY();
                 selectedColorBtn = btnGray;
-            }
-            else if(selectedColor == btnBlack.getId()) {
+            } else if (selectedColor == btnBlack.getId()) {
                 newColor = StrokeColor.getBLACK();
                 selectedColorBtn = btnBlack;
-            }
-            else {
+            } else {
                 newColor = StrokeColor.getWHITE();
                 selectedColorBtn = btnWhite;
             }
@@ -269,15 +258,13 @@ public class MainActivity extends AppCompatActivity {
 
             selectedSizeBtn.setBackgroundColor(0);
 
-            if(selectedSize == btnMed.getTag()) {
+            if (selectedSize == btnMed.getTag()) {
                 newWidth = StrokeSize.getMed();
                 selectedSizeBtn = btnMed;
-            }
-            else if(selectedSize == btnLarge.getTag()) {
+            } else if (selectedSize == btnLarge.getTag()) {
                 newWidth = StrokeSize.getLARGE();
                 selectedSizeBtn = btnLarge;
-            }
-            else {
+            } else {
                 newWidth = StrokeSize.getSMALL();
                 selectedSizeBtn = btnSmall;
             }
@@ -286,37 +273,4 @@ public class MainActivity extends AppCompatActivity {
             selectedSizeBtn.setBackgroundColor(StrokeColor.getWHITE());
         }
     };
-
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    public void saveDrawing(Bitmap bitmap, Context context) {
-
-        // opening a OutputStream to write into the file
-        OutputStream imageOutStream = null;
-
-        ContentValues cv = new ContentValues();
-
-        // name of the file
-        cv.put(MediaStore.Images.Media.DISPLAY_NAME, "drawing.png");
-
-        // type of the file
-        cv.put(MediaStore.Images.Media.MIME_TYPE, "image/png");
-
-        // location of the file to be saved
-        cv.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES);
-
-        // get the Uri of the file which is to be created in the storage
-        Uri uri = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv);
-        try {
-            // open the output stream with the above uri
-            imageOutStream = context.getContentResolver().openOutputStream(uri);
-
-            // this method writes the files in storage
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, imageOutStream);
-
-            // close the output stream after use
-            imageOutStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

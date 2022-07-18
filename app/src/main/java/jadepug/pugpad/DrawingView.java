@@ -6,12 +6,17 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
+
 import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 
 /**
  * DrawingView provides the methods used to express user input
  * onto the main activity canvas.
+ *
+ * Author: Philip lalonde
+ * Organization: Jade Pug
  */
 public class DrawingView extends View {
 
@@ -25,7 +30,7 @@ public class DrawingView extends View {
      * Class constructor
      *
      * @param context - DrawingView
-     * @param attrs - dv attributes
+     * @param attrs   - dv attributes
      */
     public DrawingView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -40,26 +45,28 @@ public class DrawingView extends View {
      * addPontToPath receives an x and y coordinate and
      * adds them as a point to an a DrawingPath.
      * It's other main function is to cause the screen to be redrawn.
+     *
      * @param x
      * @param y
      */
     public void addPointToPath(float x, float y) {
-        if(path.isEmpty())
-            path.moveTo(x,y);
+        if (path.isEmpty())
+            path.moveTo(x, y);
         else
-            path.lineTo(x,y);
+            path.lineTo(x, y);
         invalidate();
     }
 
     /**
      * beginPath receives an x and y coordinate and adds a
      * a new DrawingPath with those coordinates to an ArrayList of DrawingPaths.
+     *
      * @param x
      * @param y
      */
     public void beginPath(float x, float y) {
         path = new DrawingPath(paint.getColor(), paint.getStrokeWidth());
-        path.moveTo(x,y);
+        path.moveTo(x, y);
         paths.add(path);
     }
 
@@ -67,15 +74,16 @@ public class DrawingView extends View {
      * onDraw iterates through an ArrayList of and draws
      * each path onto the canvas.
      * It is called automatically when the canvas is redrawn.
+     *
      * @param canvas - the drawing canvas
      */
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for(DrawingPath path : paths) {
+        for (DrawingPath path : paths) {
             paint.setColor(path.color);
             paint.setStrokeWidth(path.lineWidth);
-            canvas.drawPath(path,paint);
+            canvas.drawPath(path, paint);
         }
     }
 
@@ -91,7 +99,7 @@ public class DrawingView extends View {
      * Add removed path to undone_paths Arraylist
      */
     public void undoPath() {
-        undone_paths.add(paths.remove(paths.size()-1));
+        undone_paths.add(paths.remove(paths.size() - 1));
     }
 
     /**
@@ -99,10 +107,15 @@ public class DrawingView extends View {
      * Add removed path to paths Arraylist
      */
     public void redoPath() {
-        paths.add(undone_paths.remove(undone_paths.size()-1));
+        paths.add(undone_paths.remove(undone_paths.size() - 1));
     }
 
-    public void setDrawingColor(int color) { paint.setColor(color); }
-    public void setDrawingWidth(float width) { paint.setStrokeWidth(width); }
+    public void setDrawingColor(int color) {
+        paint.setColor(color);
+    }
+
+    public void setDrawingWidth(float width) {
+        paint.setStrokeWidth(width);
+    }
 
 }
