@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Pug Pad</string>
-    <string name="btn_clear">Clear</string>
-    <string name="undo">Undo</string>
+    <string name="ok">OK</string>
+    <string name="file_permission_available">Saving Image</string>
 </resources>

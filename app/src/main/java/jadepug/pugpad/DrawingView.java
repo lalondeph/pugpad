@@ -20,6 +20,12 @@ public class DrawingView extends View {
     ArrayList<DrawingPath> undone_paths = new ArrayList<>();
     DrawingPath path;
 
+    /**
+     * Class constructor
+     *
+     * @param context - DrawingView
+     * @param attrs - dv attributes
+     */
     public DrawingView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         paint.setColor(StrokeColor.getWHITE());
@@ -60,7 +66,7 @@ public class DrawingView extends View {
      * onDraw iterates through an ArrayList of and draws
      * each path onto the canvas.
      * It is called automatically when the canvas is redrawn.
-     * @param canvas
+     * @param canvas - the drawing canvas
      */
     @Override
     protected void onDraw(Canvas canvas) {
@@ -77,6 +83,22 @@ public class DrawingView extends View {
         Canvas canvas = new Canvas(bitmap);
         view.draw(canvas);
         return bitmap;
+    }
+
+    /**
+     * Remove last path from paths ArrayList
+     * Add removed path to undone_paths Arraylist
+     */
+    public void undoPath() {
+        undone_paths.add(paths.remove(paths.size()-1));
+    }
+
+    /**
+     * Remove last path from undone_paths ArrayList
+     * Add removed path to paths Arraylist
+     */
+    public void redoPath() {
+        paths.add(undone_paths.remove(undone_paths.size()-1));
     }
 
     public void setDrawingColor(int color) { paint.setColor(color); }

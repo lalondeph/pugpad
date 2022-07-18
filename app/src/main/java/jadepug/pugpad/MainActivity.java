@@ -1,13 +1,28 @@
 package jadepug.pugpad;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.material.snackbar.Snackbar;
+
+import java.io.OutputStream;
 import java.util.Objects;
 
 /**
@@ -17,28 +32,23 @@ import java.util.Objects;
  */
 public class MainActivity extends AppCompatActivity {
 
-    DrawingView dv;
+    private DrawingView dv;
 
-    Button btnYellow;
-    Button btnRed;
-    Button btnGreen;
-    Button btnPurple;
-    Button btnBlue;
-    Button btnGray;
-    Button btnBlack;
-    Button btnWhite;
+    private Button  btnYellow,
+                    btnRed,
+                    btnGreen,
+                    btnPurple,
+                    btnBlue,
+                    btnGray,
+                    btnBlack,
+                    btnWhite,
+                    btnSmall,
+                    btnMed,
+                    btnLarge,
+                    selectedColorBtn,
+                    selectedSizeBtn;
 
-    Button btnSmall;
-    Button btnMed;
-    Button btnLarge;
-    Button btnSave;
-    Button btnClear;
-    Button btnUndo;
-    Button btnRedo;
-
-    String smileText = "\u263B";
-    Button selectedColorBtn;
-    Button selectedSizeBtn;
+    private final String smileText = "\u263B";
 
     /**
      * onCreate links variables with on-screen elements and
@@ -47,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param savedInstanceState : A mapping from String keys to various Parcelable values
      */
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +79,10 @@ public class MainActivity extends AppCompatActivity {
         btnSmall = findViewById(R.id.btnSmall);
         btnMed = findViewById(R.id.btnMed);
         btnLarge = findViewById(R.id.btnLarge);
-        btnSave = findViewById(R.id.btnSave);
-        btnClear = findViewById(R.id.btnClear);
-        btnUndo = findViewById(R.id.btnUndo);
-        btnRedo = findViewById(R.id.btnRedo);
+        Button btnSave = findViewById(R.id.btnSave);
+        Button btnClear = findViewById(R.id.btnClear);
+        Button btnUndo = findViewById(R.id.btnUndo);
+        Button btnRedo = findViewById(R.id.btnRedo);
 
         btnYellow.setOnClickListener(colorListener);
         btnRed.setOnClickListener(colorListener);
@@ -104,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
          * This listener Saves the canvas to a file
          */
         btnSave.setOnClickListener(view -> {
-            dv.invalidate();
+            saveDrawing(dv.viewToBitmap(view), dv.getContext());
         });
 
         /*
@@ -123,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
          */
         btnUndo.setOnClickListener(view -> {
             if(dv.paths.size() > 0) {
-                dv.undone_paths.add(dv.paths.remove(dv.paths.size()-1));
+                dv.undoPath();
                 dv.invalidate();
             }
         });
@@ -135,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
          */
         btnRedo.setOnClickListener(view -> {
             if(dv.undone_paths.size() > 0) {
-                dv.paths.add(dv.undone_paths.remove(dv.undone_paths.size()-1));
+                dv.redoPath();
                 dv.invalidate();
             }
         });
@@ -243,4 +254,37 @@ public class MainActivity extends AppCompatActivity {
             selectedSizeBtn.setBackgroundColor(StrokeColor.getWHITE());
         }
     };
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    public void saveDrawing(Bitmap bitmap, Context context) {
+
+        // opening a OutputStream to write into the file
+        OutputStream imageOutStream = null;
+
+        ContentValues cv = new ContentValues();
+
+        // name of the file
+        cv.put(MediaStore.Images.Media.DISPLAY_NAME, "drawing.png");
+
+        // type of the file
+        cv.put(MediaStore.Images.Media.MIME_TYPE, "image/png");
+
+        // location of the file to be saved
+        cv.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES);
+
+        // get the Uri of the file which is to be created in the storage
+        Uri uri = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv);
+        try {
+            // open the output stream with the above uri
+            imageOutStream = context.getContentResolver().openOutputStream(uri);
+
+            // this method writes the files in storage
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, imageOutStream);
+
+            // close the output stream after use
+            imageOutStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
