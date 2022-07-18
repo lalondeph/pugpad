@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     selectedSizeBtn;
 
     private final String smileText = "\u263B";
+    private boolean saving = false;
 
     /**
      * onCreate links variables with on-screen elements and
@@ -114,34 +115,38 @@ public class MainActivity extends AppCompatActivity {
          * This listener Saves the canvas to a file
          */
         btnSave.setOnClickListener(view -> {
-            Snackbar.make(activity_main, R.string.saving_image,
-                    Snackbar.LENGTH_SHORT)
-                    .show();
+            if(!saving) {
+                saving = true;
+                Snackbar.make(activity_main, R.string.saving_image,
+                        Snackbar.LENGTH_SHORT)
+                        .show();
 
-            //getting the bitmap from DrawView class
-            Bitmap bmp = dv.viewToBitmap();
-            //opening a OutputStream to write into the file
-            OutputStream imageOutStream = null;
+                //getting the bitmap from DrawView class
+                Bitmap bmp = dv.viewToBitmap();
+                //opening a OutputStream to write into the file
+                OutputStream imageOutStream = null;
 
-            ContentValues cv = new ContentValues();
-            //name of the file
-            cv.put(MediaStore.Images.Media.DISPLAY_NAME, "drawing.png");
-            //type of the file
-            cv.put(MediaStore.Images.Media.MIME_TYPE, "image/png");
-            //location of the file to be saved
-            cv.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES);
+                ContentValues cv = new ContentValues();
+                //name of the file
+                cv.put(MediaStore.Images.Media.DISPLAY_NAME, "drawing.png");
+                //type of the file
+                cv.put(MediaStore.Images.Media.MIME_TYPE, "image/png");
+                //location of the file to be saved
+                cv.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES);
 
-            //ge the Uri of the file which is to be v=created in the storage
-            Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv);
-            try {
-                //open the output stream with the above uri
-                imageOutStream = getContentResolver().openOutputStream(uri);
-                //this method writes the files in storage
-                bmp.compress(Bitmap.CompressFormat.PNG, 100, imageOutStream);
-                //close the output stream after use
-                imageOutStream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
+                //ge the Uri of the file which is to be v=created in the storage
+                Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv);
+                try {
+                    //open the output stream with the above uri
+                    imageOutStream = getContentResolver().openOutputStream(uri);
+                    //this method writes the files in storage
+                    bmp.compress(Bitmap.CompressFormat.PNG, 100, imageOutStream);
+                    //close the output stream after use
+                    imageOutStream.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                saving = false;
             }
         });
 
