@@ -2,20 +2,17 @@ package jadepug.pugpad;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +30,7 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     private DrawingView dv;
+    private View activity_main;
 
     private Button  btnYellow,
                     btnRed,
@@ -65,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
+        activity_main = findViewById(R.id.activity_main);
         dv =  findViewById(R.id.drawingView);
         dv.setDrawingCacheEnabled(true);
 
@@ -115,7 +114,35 @@ public class MainActivity extends AppCompatActivity {
          * This listener Saves the canvas to a file
          */
         btnSave.setOnClickListener(view -> {
-            saveDrawing(dv.viewToBitmap(view), dv.getContext());
+            Snackbar.make(activity_main, R.string.saving_image,
+                    Snackbar.LENGTH_SHORT)
+                    .show();
+
+            //getting the bitmap from DrawView class
+            Bitmap bmp = dv.viewToBitmap();
+            //opening a OutputStream to write into the file
+            OutputStream imageOutStream = null;
+
+            ContentValues cv = new ContentValues();
+            //name of the file
+            cv.put(MediaStore.Images.Media.DISPLAY_NAME, "drawing.png");
+            //type of the file
+            cv.put(MediaStore.Images.Media.MIME_TYPE, "image/png");
+            //location of the file to be saved
+            cv.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES);
+
+            //ge the Uri of the file which is to be v=created in the storage
+            Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv);
+            try {
+                //open the output stream with the above uri
+                imageOutStream = getContentResolver().openOutputStream(uri);
+                //this method writes the files in storage
+                bmp.compress(Bitmap.CompressFormat.PNG, 100, imageOutStream);
+                //close the output stream after use
+                imageOutStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
 
         /*

@@ -19,6 +19,7 @@ public class DrawingView extends View {
     ArrayList<DrawingPath> paths = new ArrayList<>();
     ArrayList<DrawingPath> undone_paths = new ArrayList<>();
     DrawingPath path;
+    Bitmap bitmap;
 
     /**
      * Class constructor
@@ -78,10 +79,10 @@ public class DrawingView extends View {
         }
     }
 
-    public Bitmap viewToBitmap(View view) {
-        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+    public Bitmap viewToBitmap() {
+        bitmap = Bitmap.createBitmap(this.getWidth(), this.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        view.draw(canvas);
+        this.draw(canvas);
         return bitmap;
     }
 
