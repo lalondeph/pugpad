@@ -2,4 +2,9 @@
     <string name="app_name">Pug Pad</string>
     <string name="ok">OK</string>
     <string name="saving_image">Saving image</string>
+    <string name="save">Save</string>
+    <string name="clear">Clear</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm_save">"Save image?"</string>
+    <string name="confirm_clear">"Clear image?"</string>
 </resources>

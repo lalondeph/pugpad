@@ -2,6 +2,7 @@ package jadepug.pugpad;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -117,32 +119,21 @@ public class MainActivity extends AppCompatActivity {
          */
         btnSave.setOnClickListener(view -> {
             if (!saving && dv.paths.size() > 0) {
-                saving = true;
-                // Show file save message
-                Snackbar.make(activity_main, R.string.saving_image,
-                        Snackbar.LENGTH_SHORT)
-                        .show();
-                // Get bitmap from DrawView class
-                Bitmap bmp = dv.viewToBitmap();
-                // Open OutputStream to write into the file
-                OutputStream imageOutStream;
-                // Instantiate ContentView
-                ContentValues cv = new ContentValues();
-                // Set file name, type and save location
-                cv.put(MediaStore.Images.Media.DISPLAY_NAME, "pug_pad.png");
-                cv.put(MediaStore.Images.Media.MIME_TYPE, "image/png");
-                cv.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(R.string.confirm_save)
+                        .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                saveCanvas();
+                            }
+                        })
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) { }
+                        });
 
-                // Get file URI
-                Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv);
-                try {
-                    imageOutStream = getContentResolver().openOutputStream(uri);
-                    bmp.compress(Bitmap.CompressFormat.PNG, 100, imageOutStream);
-                    imageOutStream.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                saving = false;
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
@@ -151,8 +142,23 @@ public class MainActivity extends AppCompatActivity {
          * and prompts the canvas to redraw
          */
         btnClear.setOnClickListener(view -> {
-            dv.paths.clear();
-            dv.invalidate();
+            AlertDialog.Builder clearBuilder = new AlertDialog.Builder(this);
+            clearBuilder.setMessage(R.string.confirm_clear)
+                        .setPositiveButton(R.string.clear, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dv.paths.clear();
+                                dv.undone_paths.clear();
+                                dv.invalidate();
+                            }
+                        })
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) { }
+                        });
+
+            AlertDialog clearDialog = clearBuilder.create();
+            clearDialog.show();
         });
 
         /*
@@ -273,4 +279,37 @@ public class MainActivity extends AppCompatActivity {
             selectedSizeBtn.setBackgroundColor(StrokeColor.getWHITE());
         }
     };
+
+    /**
+     *
+     */
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    private void saveCanvas() {
+        saving = true;
+        // Show file save message
+        Snackbar.make(activity_main, R.string.saving_image,
+                Snackbar.LENGTH_SHORT)
+                .show();
+        // Get bitmap from DrawView class
+        Bitmap bmp = dv.viewToBitmap();
+        // Open OutputStream to write into the file
+        OutputStream imageOutStream;
+        // Instantiate ContentView
+        ContentValues cv = new ContentValues();
+        // Set file name, type and save location
+        cv.put(MediaStore.Images.Media.DISPLAY_NAME, "pug_pad.png");
+        cv.put(MediaStore.Images.Media.MIME_TYPE, "image/png");
+        cv.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES);
+
+        // Get file URI
+        Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, cv);
+        try {
+            imageOutStream = getContentResolver().openOutputStream(uri);
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, imageOutStream);
+            imageOutStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        saving = false;
+    }
 }
