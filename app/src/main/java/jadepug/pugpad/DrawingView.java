@@ -36,7 +36,7 @@ public class DrawingView extends View {
      */
     public DrawingView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        setCurrentStrokeColor(StrokeColor.getWHITE());
+        setCurrentStrokeColor(Colors.getWHITE());
         setCurrentStrokeSize(StrokeSize.getSMALL());
 
         paint.setColor(currentStrokeColor);
@@ -122,16 +122,8 @@ public class DrawingView extends View {
         paths.add(undone_paths.remove(undone_paths.size() - 1));
     }
 
-    public int getCurrentStrokeColor() {
-        return currentStrokeColor;
-    }
-
     public void setCurrentStrokeColor(int currentStrokeColor) {
         this.currentStrokeColor = currentStrokeColor;
-    }
-
-    public float getCurrentStrokeSize() {
-        return currentStrokeSize;
     }
 
     public void setCurrentStrokeSize(float currentStrokeSize) {

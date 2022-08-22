@@ -220,7 +220,26 @@
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight=".5" />
+                android:layout_weight=".06" />
+
+            <Button
+                android:id="@+id/btnChangePalette"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".24"
+                android:adjustViewBounds="true"
+                android:backgroundTint="#F0ECB100"
+                android:minHeight="48dp"
+                app:icon="@android:drawable/btn_star"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconSize="30dp"
+                app:iconTint="#5D4037" />
+
+            <Space
+                android:layout_width="24dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".06" />
 
             <Button
                 android:id="@+id/btnLarge"

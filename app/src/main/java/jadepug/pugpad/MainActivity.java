@@ -2,7 +2,6 @@ package jadepug.pugpad;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -70,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
         activity_main = findViewById(R.id.activity_main);
         dv = findViewById(R.id.drawingView);
         dv.setDrawingCacheEnabled(true);
+        dv.setBackgroundColor(Colors.getDefaultBackgroundColor());
+        Colors.setDefaultPalette();
 
         btnYellow = findViewById(R.id.btnYellow);
         btnRed = findViewById(R.id.btnRed);
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnClear = findViewById(R.id.btnClear);
         Button btnUndo = findViewById(R.id.btnUndo);
         Button btnRedo = findViewById(R.id.btnRedo);
+        Button btnChangePalette = findViewById(R.id.btnChangePalette);
 
         btnYellow.setOnClickListener(colorListener);
         btnRed.setOnClickListener(colorListener);
@@ -96,14 +98,7 @@ public class MainActivity extends AppCompatActivity {
         btnBlack.setOnClickListener(colorListener);
         btnWhite.setOnClickListener(colorListener);
 
-        btnYellow.setBackgroundColor(StrokeColor.getYELLOW());
-        btnRed.setBackgroundColor(StrokeColor.getRED());
-        btnGreen.setBackgroundColor(StrokeColor.getGREEN());
-        btnPurple.setBackgroundColor(StrokeColor.getPURPLE());
-        btnBlue.setBackgroundColor(StrokeColor.getBLUE());
-        btnGray.setBackgroundColor(StrokeColor.getGRAY());
-        btnBlack.setBackgroundColor(StrokeColor.getBLACK());
-        btnWhite.setBackgroundColor(StrokeColor.getWHITE());
+        setColorSwatches();
 
         btnSmall.setOnClickListener(brushListener);
         btnMed.setOnClickListener(brushListener);
@@ -112,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         selectedColorBtn = btnWhite;
         selectedColorBtn.setText(smileText);
         selectedSizeBtn = btnSmall;
-        selectedSizeBtn.setBackgroundColor(StrokeColor.getWHITE());
+        selectedSizeBtn.setBackgroundColor(Colors.getWHITE());
 
         /*
          * This listener Saves the canvas to a file
@@ -121,16 +116,8 @@ public class MainActivity extends AppCompatActivity {
             if (!saving && dv.paths.size() > 0) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(R.string.confirm_save)
-                        .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                saveCanvas();
-                            }
-                        })
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) { }
-                        });
+                        .setPositiveButton(R.string.save, (dialogInterface, i) -> saveCanvas())
+                        .setNegativeButton(R.string.cancel, (dialogInterface, i) -> { });
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
@@ -144,18 +131,12 @@ public class MainActivity extends AppCompatActivity {
         btnClear.setOnClickListener(view -> {
             AlertDialog.Builder clearBuilder = new AlertDialog.Builder(this);
             clearBuilder.setMessage(R.string.confirm_clear)
-                        .setPositiveButton(R.string.clear, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dv.paths.clear();
-                                dv.undone_paths.clear();
-                                dv.invalidate();
-                            }
+                        .setPositiveButton(R.string.clear, (dialogInterface, i) -> {
+                            dv.paths.clear();
+                            dv.undone_paths.clear();
+                            dv.invalidate();
                         })
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) { }
-                        });
+                        .setNegativeButton(R.string.cancel, (dialogInterface, i) -> { });
 
             AlertDialog clearDialog = clearBuilder.create();
             clearDialog.show();
@@ -183,6 +164,26 @@ public class MainActivity extends AppCompatActivity {
                 dv.redoPath();
                 dv.invalidate();
             }
+        });
+
+        /*
+         * Changes the color palette of the app
+         */
+        btnChangePalette.setOnClickListener(view -> {
+                if (dv.paths.size() > 0) {
+                    AlertDialog.Builder clearBuilder = new AlertDialog.Builder(this);
+                    clearBuilder.setMessage(R.string.confirm_palette_change)
+                            .setPositiveButton(R.string.swap, (dialogInterface, i) -> {
+                                swapPalette();
+                            })
+                            .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
+                            });
+
+                    AlertDialog clearDialog = clearBuilder.create();
+                    clearDialog.show();
+                } else {
+                    swapPalette();
+                }
         });
 
         /*
@@ -220,28 +221,28 @@ public class MainActivity extends AppCompatActivity {
             selectedColorBtn.setText("");
 
             if (selectedColor == btnYellow.getId()) {
-                newColor = StrokeColor.getYELLOW();
+                newColor = Colors.getC_yellow();
                 selectedColorBtn = btnYellow;
             } else if (selectedColor == btnRed.getId()) {
-                newColor = StrokeColor.getRED();
+                newColor = Colors.getC_red();
                 selectedColorBtn = btnRed;
             } else if (selectedColor == btnGreen.getId()) {
-                newColor = StrokeColor.getGREEN();
+                newColor = Colors.getC_green();
                 selectedColorBtn = btnGreen;
             } else if (selectedColor == btnPurple.getId()) {
-                newColor = StrokeColor.getPURPLE();
+                newColor = Colors.getC_purple();
                 selectedColorBtn = btnPurple;
             } else if (selectedColor == btnBlue.getId()) {
-                newColor = StrokeColor.getBLUE();
+                newColor = Colors.getC_blue();
                 selectedColorBtn = btnBlue;
             } else if (selectedColor == btnGray.getId()) {
-                newColor = StrokeColor.getGRAY();
+                newColor = Colors.getC_gray();
                 selectedColorBtn = btnGray;
             } else if (selectedColor == btnBlack.getId()) {
-                newColor = StrokeColor.getBLACK();
+                newColor = Colors.getC_black();
                 selectedColorBtn = btnBlack;
             } else {
-                newColor = StrokeColor.getWHITE();
+                newColor = Colors.getC_white();
                 selectedColorBtn = btnWhite;
             }
 
@@ -276,12 +277,33 @@ public class MainActivity extends AppCompatActivity {
             }
 
             dv.setCurrentStrokeSize(newWidth);
-            selectedSizeBtn.setBackgroundColor(StrokeColor.getWHITE());
+            selectedSizeBtn.setBackgroundColor(Colors.getWHITE());
         }
     };
 
+    private void setColorSwatches() {
+        btnYellow.setBackgroundColor(Colors.getC_yellow());
+        btnRed.setBackgroundColor(Colors.getC_red());
+        btnGreen.setBackgroundColor(Colors.getC_green());
+        btnPurple.setBackgroundColor(Colors.getC_purple());
+        btnBlue.setBackgroundColor(Colors.getC_blue());
+        btnGray.setBackgroundColor(Colors.getC_gray());
+        btnBlack.setBackgroundColor(Colors.getC_black());
+        btnWhite.setBackgroundColor(Colors.getC_white());
+    }
+
+    private void swapPalette() {
+        dv.paths.clear();
+        dv.undone_paths.clear();
+        Colors.changePalette();
+        dv.setBackgroundColor(Colors.getC_background());
+        setColorSwatches();
+        dv.invalidate();
+    }
+
     /**
-     *
+     * Called when user confirms a save action
+     * exports view to png on users device
      */
     @RequiresApi(api = Build.VERSION_CODES.Q)
     private void saveCanvas() {
@@ -297,8 +319,8 @@ public class MainActivity extends AppCompatActivity {
         // Instantiate ContentView
         ContentValues cv = new ContentValues();
         // Set file name, type and save location
-        cv.put(MediaStore.Images.Media.DISPLAY_NAME, "pug_pad.png");
-        cv.put(MediaStore.Images.Media.MIME_TYPE, "image/png");
+        cv.put(MediaStore.Images.Media.DISPLAY_NAME, getString(R.string.output_file_name));
+        cv.put(MediaStore.Images.Media.MIME_TYPE, getString(R.string.image_type));
         cv.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES);
 
         // Get file URI
