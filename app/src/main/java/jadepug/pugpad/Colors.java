@@ -16,24 +16,32 @@ import java.util.Map;
 public class Colors {
 
     // Default palette
-    static final int YELLOW = Color.parseColor("#F8DF4B");
-    static final int RED = Color.parseColor("#E32D3B");
-    static final int GREEN = Color.parseColor("#3FE233");
-    static final int PURPLE = Color.parseColor("#9869CC");
-    static final int BLUE = Color.parseColor("#3186EC");
-    static final int GRAY = Color.parseColor("#5F6B5B");
-    static final int BLACK = Color.parseColor("#212420");
-    static final int WHITE = Color.parseColor("#f3f8f1");
+    static final int YELLOW = Color.parseColor("#fff200");
+    static final int RED = Color.parseColor("#Ed1C24");
+    static final int GREEN = Color.parseColor("#22B14C");
+    static final int PURPLE = Color.parseColor("#6F3198");
+    static final int BLUE = Color.parseColor("#2F3699");
+    static final int GRAY = Color.parseColor("#787878");
+    static final int BLACK = Color.parseColor("#000000");
+    static final int WHITE = Color.parseColor("#FFFFFF");
+//    static final int YELLOW = Color.parseColor("#F8DF4B");
+//    static final int RED = Color.parseColor("#E32D3B");
+//    static final int GREEN = Color.parseColor("#3FE233");
+//    static final int PURPLE = Color.parseColor("#9869CC");
+//    static final int BLUE = Color.parseColor("#3186EC");
+//    static final int GRAY = Color.parseColor("#5F6B5B");
+//    static final int BLACK = Color.parseColor("#212420");
+//    static final int WHITE = Color.parseColor("#f3f8f1");
     static final int DEFAULT_BACKGROUND_COLOR = Color.parseColor("#3E3B37");
     // Alternate palette
-    static final int ALT_YELLOW = Color.parseColor("#fff200");
-    static final int ALT_RED = Color.parseColor("#Ed1C24");
-    static final int ALT_GREEN = Color.parseColor("#22B14C");
-    static final int ALT_PURPLE = Color.parseColor("#6F3198");
-    static final int ALT_BLUE = Color.parseColor("#2F3699");
-    static final int ALT_GRAY = Color.parseColor("#787878");
-    static final int ALT_BLACK = Color.parseColor("#000000");
-    static final int ALT_WHITE = Color.parseColor("#FFFFFF");
+    static final int ALT_YELLOW = Color.parseColor("#ffc20e");
+    static final int ALT_RED = Color.parseColor("#990030");
+    static final int ALT_GREEN = Color.parseColor("#9dbb61");
+    static final int ALT_PURPLE = Color.parseColor("#b5a5d5");
+    static final int ALT_BLUE = Color.parseColor("#99d9ea");
+    static final int ALT_GRAY = Color.parseColor("#464646");
+    static final int ALT_BLACK = Color.parseColor("#ff7e00");
+    static final int ALT_WHITE = Color.parseColor("#ffa3b1");
     // Current palette
     static int c_yellow;
     static int c_red;
@@ -172,7 +180,6 @@ public class Colors {
         c_gray = GRAY;
         c_black = BLACK;
         c_white = WHITE;
-        c_background = DEFAULT_BACKGROUND_COLOR;
     }
 
     public static void setAltPalette() {
@@ -184,6 +191,5 @@ public class Colors {
         c_gray = ALT_GRAY;
         c_black = ALT_BLACK;
         c_white = ALT_WHITE;
-        c_background = ALT_WHITE;
     }
 }

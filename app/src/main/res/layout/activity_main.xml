@@ -230,7 +230,7 @@
                 android:adjustViewBounds="true"
                 android:backgroundTint="#F0ECB100"
                 android:minHeight="48dp"
-                app:icon="@android:drawable/btn_star"
+                app:icon="@drawable/ic_baseline_palette_24"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
                 app:iconSize="30dp"

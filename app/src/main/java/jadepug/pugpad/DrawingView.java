@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -74,6 +75,7 @@ public class DrawingView extends View {
      */
     public void beginPath(float x, float y) {
         path = new DrawingPath(currentStrokeColor, currentStrokeSize);
+        addPointToPath(x,y);
         paths.add(path);
     }
 

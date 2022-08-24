@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final String smileText = "\u263B";
     private boolean saving = false;
+    private boolean $selectedVisible = true;
 
     /**
      * onCreate links variables with on-screen elements and
@@ -170,20 +171,7 @@ public class MainActivity extends AppCompatActivity {
          * Changes the color palette of the app
          */
         btnChangePalette.setOnClickListener(view -> {
-                if (dv.paths.size() > 0) {
-                    AlertDialog.Builder clearBuilder = new AlertDialog.Builder(this);
-                    clearBuilder.setMessage(R.string.confirm_palette_change)
-                            .setPositiveButton(R.string.swap, (dialogInterface, i) -> {
-                                swapPalette();
-                            })
-                            .setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
-                            });
-
-                    AlertDialog clearDialog = clearBuilder.create();
-                    clearDialog.show();
-                } else {
-                    swapPalette();
-                }
+            swapPalette();
         });
 
         /*
@@ -191,15 +179,17 @@ public class MainActivity extends AppCompatActivity {
          * turns touch input into points on a path.
          */
         dv.setOnTouchListener((view, motionEvent) -> {
+            float x = motionEvent.getX();
+            float y = motionEvent.getY();
             int action = motionEvent.getActionMasked();
 
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
-                    dv.beginPath(motionEvent.getX(), motionEvent.getY());
+                    dv.beginPath(x, y);
                     break;
                 case MotionEvent.ACTION_MOVE:
                 case MotionEvent.ACTION_UP:
-                    dv.addPointToPath(motionEvent.getX(), motionEvent.getY());
+                    dv.addPointToPath(x, y);
                     break;
             }
             return true;
@@ -248,6 +238,7 @@ public class MainActivity extends AppCompatActivity {
 
             dv.setCurrentStrokeColor(newColor);
             selectedColorBtn.setText(smileText);
+            $selectedVisible = true;
         }
     };
 
@@ -292,13 +283,19 @@ public class MainActivity extends AppCompatActivity {
         btnWhite.setBackgroundColor(Colors.getC_white());
     }
 
+    /**
+     * changes the color palette
+     */
     private void swapPalette() {
-        dv.paths.clear();
-        dv.undone_paths.clear();
         Colors.changePalette();
-        dv.setBackgroundColor(Colors.getC_background());
         setColorSwatches();
-        dv.invalidate();
+        if($selectedVisible) {
+            $selectedVisible = false;
+            selectedColorBtn.setText("");
+        } else {
+            $selectedVisible = true;
+            selectedColorBtn.setText(smileText);
+        }
     }
 
     /**
