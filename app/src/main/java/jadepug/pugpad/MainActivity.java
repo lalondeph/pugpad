@@ -170,9 +170,7 @@ public class MainActivity extends AppCompatActivity {
         /*
          * Changes the color palette of the app
          */
-        btnChangePalette.setOnClickListener(view -> {
-            swapPalette();
-        });
+        btnChangePalette.setOnClickListener(view -> swapPalette());
 
         /*
          * Called on user touch event. This listener
@@ -184,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
             int action = motionEvent.getActionMasked();
 
             if(action == MotionEvent.ACTION_DOWN) {
-                dv.beginPath(x, y);
+                dv.beginPath();
             }
 
             dv.addPointToPath(x, y);

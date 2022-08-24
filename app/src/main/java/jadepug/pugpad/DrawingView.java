@@ -66,11 +66,8 @@ public class DrawingView extends View {
     /**
      * beginPath receives an x and y coordinate and adds a
      * a new DrawingPath with those coordinates to an ArrayList of DrawingPaths.
-     *
-     * @param x - x coordinate of input
-     * @param y - y coordinate of input
      */
-    public void beginPath(float x, float y) {
+    public void beginPath() {
         path = new DrawingPath(currentStrokeColor, currentStrokeSize);
         paths.add(path);
     }
