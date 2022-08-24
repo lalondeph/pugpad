@@ -183,15 +183,11 @@ public class MainActivity extends AppCompatActivity {
             float y = motionEvent.getY();
             int action = motionEvent.getActionMasked();
 
-            switch (action) {
-                case MotionEvent.ACTION_DOWN:
-                    dv.beginPath(x, y);
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                case MotionEvent.ACTION_UP:
-                    dv.addPointToPath(x, y);
-                    break;
+            if(action == MotionEvent.ACTION_DOWN) {
+                dv.beginPath(x, y);
             }
+
+            dv.addPointToPath(x, y);
             return true;
         });
     }

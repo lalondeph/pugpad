@@ -24,14 +24,6 @@ public class Colors {
     static final int GRAY = Color.parseColor("#787878");
     static final int BLACK = Color.parseColor("#000000");
     static final int WHITE = Color.parseColor("#FFFFFF");
-//    static final int YELLOW = Color.parseColor("#F8DF4B");
-//    static final int RED = Color.parseColor("#E32D3B");
-//    static final int GREEN = Color.parseColor("#3FE233");
-//    static final int PURPLE = Color.parseColor("#9869CC");
-//    static final int BLUE = Color.parseColor("#3186EC");
-//    static final int GRAY = Color.parseColor("#5F6B5B");
-//    static final int BLACK = Color.parseColor("#212420");
-//    static final int WHITE = Color.parseColor("#f3f8f1");
     static final int DEFAULT_BACKGROUND_COLOR = Color.parseColor("#3E3B37");
     // Alternate palette
     static final int ALT_YELLOW = Color.parseColor("#ffc20e");
@@ -51,16 +43,10 @@ public class Colors {
     static int c_gray;
     static int c_black;
     static int c_white;
-    static int c_background;
 
     public static int getDefaultBackgroundColor() {
         return DEFAULT_BACKGROUND_COLOR;
     }
-
-    public static int getC_background() {
-        return c_background;
-    }
-
 
     public static int getC_yellow() {
         return c_yellow;
@@ -97,68 +83,8 @@ public class Colors {
     // Current palette flag
     static boolean default_palette = false;
 
-    static public int getYELLOW() {
-        return YELLOW;
-    }
-
-    static public int getRED() {
-        return RED;
-    }
-
-    static public int getGREEN() {
-        return GREEN;
-    }
-
-    static public int getPURPLE() {
-        return PURPLE;
-    }
-
-    static public int getBLUE() {
-        return BLUE;
-    }
-
-    static public int getGRAY() {
-        return GRAY;
-    }
-
-    static public int getBLACK() {
-        return BLACK;
-    }
-
     static public int getWHITE() {
         return WHITE;
-    }
-
-    public static int getAltYellow() {
-        return ALT_YELLOW;
-    }
-
-    public static int getAltRed() {
-        return ALT_RED;
-    }
-
-    public static int getAltGreen() {
-        return ALT_GREEN;
-    }
-
-    public static int getAltPurple() {
-        return ALT_PURPLE;
-    }
-
-    public static int getAltBlue() {
-        return ALT_BLUE;
-    }
-
-    public static int getAltGray() {
-        return ALT_GRAY;
-    }
-
-    public static int getAltBlack() {
-        return ALT_BLACK;
-    }
-
-    public static int getAltWhite() {
-        return ALT_WHITE;
     }
 
     public static void changePalette() {
