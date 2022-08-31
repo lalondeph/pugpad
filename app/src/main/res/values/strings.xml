@@ -6,9 +6,10 @@
     <string name="clear">Clear</string>
     <string name="swap">Swap</string>
     <string name="cancel">Cancel</string>
-    <string name="confirm_save">"Save image?"</string>
-    <string name="confirm_clear">"Clear image?"</string>
-    <string name="confirm_palette_change">"This action with clear your drawing! Save before you proceed."</string>
-    <string name="output_file_name">pug_pad.png</string>
+    <string name="confirm_save">"Save drawing?"</string>
+    <string name="confirm_clear">"Clear drawing?"</string>
+    <string name="confirm_palette_change">"This action will clear your drawing! Save before you proceed."</string>
+    <string name="output_file_name">pug-pad-</string>
+    <string name="output_file_extension">.png</string>
     <string name="image_type">image/png</string>
 </resources>

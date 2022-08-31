@@ -310,7 +310,8 @@ public class MainActivity extends AppCompatActivity {
         // Instantiate ContentView
         ContentValues cv = new ContentValues();
         // Set file name, type and save location
-        cv.put(MediaStore.Images.Media.DISPLAY_NAME, getString(R.string.output_file_name));
+        String fileName = getString(R.string.output_file_name) + (System.currentTimeMillis() / 1000) + getString(R.string.output_file_extension);
+        cv.put(MediaStore.Images.Media.DISPLAY_NAME, fileName);
         cv.put(MediaStore.Images.Media.MIME_TYPE, getString(R.string.image_type));
         cv.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES);
 
