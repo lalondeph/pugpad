@@ -25,6 +25,8 @@ public class Colors {
     static final int BLACK = Color.parseColor("#000000");
     static final int WHITE = Color.parseColor("#FFFFFF");
     static final int DEFAULT_BACKGROUND_COLOR = Color.parseColor("#3E3B37");
+    static final int DEFAULT_ICON = Color.parseColor("#5D4037");
+    static final int ERASER_SELECTED = Color.parseColor("#FFDF6A92");
     // Alternate palette
     static final int ALT_YELLOW = Color.parseColor("#ffc20e");
     static final int ALT_RED = Color.parseColor("#990030");
@@ -43,6 +45,14 @@ public class Colors {
     static int c_gray;
     static int c_black;
     static int c_white;
+
+    public static int getDefaultIcon() {
+        return DEFAULT_ICON;
+    }
+
+    public static int getEraserSelected() {
+        return ERASER_SELECTED;
+    }
 
     public static int getDefaultBackgroundColor() {
         return DEFAULT_BACKGROUND_COLOR;

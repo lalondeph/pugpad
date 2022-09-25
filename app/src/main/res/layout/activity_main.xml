@@ -11,7 +11,7 @@
         android:id="@+id/tools"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:background="#959595"
+        android:background="@color/primary"
         android:paddingLeft="3dp"
         android:paddingTop="5dp"
         android:paddingRight="3dp"
@@ -212,6 +212,25 @@
                 android:backgroundTint="#F0ECB100"
                 android:minHeight="48dp"
                 app:icon="@drawable/ic_baseline_redo_24"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconSize="30dp"
+                app:iconTint="#5D4037" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".06" />
+
+            <Button
+                android:id="@+id/btnErase"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".24"
+                android:adjustViewBounds="true"
+                android:backgroundTint="#F0ECB100"
+                android:minHeight="48dp"
+                app:icon="@drawable/ic_erasericon"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
                 app:iconSize="30dp"

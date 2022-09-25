@@ -2,6 +2,7 @@ package jadepug.pugpad;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -19,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.OutputStream;
-import java.util.Objects;
 
 /**
  * MainActivity hosts the running logic for the app.
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
             btnSmall,
             btnMed,
             btnLarge,
+            btnErase,
             selectedColorBtn,
             selectedSizeBtn;
 
@@ -65,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Objects.requireNonNull(getSupportActionBar()).hide();
 
         activity_main = findViewById(R.id.activity_main);
         dv = findViewById(R.id.drawingView);
@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         btnGray = findViewById(R.id.btnGray);
         btnBlack = findViewById(R.id.btnBlack);
         btnWhite = findViewById(R.id.btnWhite);
+        btnErase = findViewById(R.id.btnErase);
         btnSmall = findViewById(R.id.btnSmall);
         btnMed = findViewById(R.id.btnMed);
         btnLarge = findViewById(R.id.btnLarge);
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         btnGray.setOnClickListener(colorListener);
         btnBlack.setOnClickListener(colorListener);
         btnWhite.setOnClickListener(colorListener);
+        btnErase.setOnClickListener(colorListener);
 
         setColorSwatches();
 
@@ -196,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
      * strokes already on the canvas.
      */
     View.OnClickListener colorListener = new View.OnClickListener() {
+        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onClick(View view) {
 
@@ -225,13 +228,22 @@ public class MainActivity extends AppCompatActivity {
             } else if (selectedColor == btnBlack.getId()) {
                 newColor = Colors.getC_black();
                 selectedColorBtn = btnBlack;
-            } else {
+            } else if (selectedColor == btnWhite.getId()){
                 newColor = Colors.getC_white();
                 selectedColorBtn = btnWhite;
+            } else {
+                // erase by coloring the background color
+                newColor = Colors.DEFAULT_BACKGROUND_COLOR;
+                selectedColorBtn = btnErase;
             }
 
             dv.setCurrentStrokeColor(newColor);
-            selectedColorBtn.setText(smileText);
+            if (selectedColorBtn == btnErase) {
+                btnErase.setCompoundDrawableTintList(ColorStateList.valueOf(Colors.getEraserSelected()));
+            } else {
+                btnErase.setCompoundDrawableTintList(ColorStateList.valueOf(Colors.getDefaultIcon()));
+                selectedColorBtn.setText(smileText);
+            }
             $selectedVisible = true;
         }
     };
